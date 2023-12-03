@@ -1,4 +1,4 @@
-# react-tools
+# @ilz5753/react-tools
 
 A React utility library providing a collection of hooks, providers, and components designed to streamline common React development patterns and enhance functionality.
 
@@ -46,16 +46,16 @@ A hook for interacting with `NavigationProvider`, providing easy access to navig
 
 ## Installation
 
-To use `react-tools` in your project, you need to install it:
+To use `@ilz5753/react-tools` in your project, you need to install it:
 
 ```bash
-npm install react-tools --save
+npm install @ilz5753/react-tools --save
 ```
 
 or if you're using yarn:
 
 ```bash
-yarn add react-tools
+yarn add @ilz5753/react-tools
 ```
 
 ## Usage
@@ -63,7 +63,7 @@ yarn add react-tools
 Here's a quick example to get you started:
 
 ```jsx
-import { ErrorHandlerProvider, useErrorHandler } from "react-tools";
+import { ErrorHandlerProvider, useErrorHandler } from "@ilz5753/react-tools";
 
 const MyComponent = () => {
   const { show } = useErrorHandler();
