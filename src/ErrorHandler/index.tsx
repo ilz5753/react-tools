@@ -1,11 +1,11 @@
-import map from "lodash.map";
 import includes from "lodash.includes";
 import indexOf from "lodash.indexof";
-import { createContext, useCallback, useState } from "react";
-import { TKey } from "../type";
+import map from "lodash.map";
+import React, { createContext, useCallback, useState } from "react";
+import type { TKey } from "../type";
 import useContext from "../useContext";
 import { forgottonProviderMessage } from "../utils";
-import {
+import type {
   IErrorData,
   IErrorHandler,
   IErrorHandlerProvider,
@@ -40,6 +40,7 @@ export default function ErrorHandlerProvider({
         let index = indexOf(ids, id);
         return errorItems[index];
       }
+      return undefined;
     },
     [errorItems]
   );
@@ -49,7 +50,7 @@ export default function ErrorHandlerProvider({
       let ids = map(copy, ({ id }) => id);
       if (includes(ids, id)) {
         let index = indexOf(ids, id);
-        copy[index] = { ...copy[index], ...newError };
+        copy[index] = { ...copy[index], ...newError, id };
         setErrorItems(copy);
       }
     },
@@ -73,8 +74,8 @@ export default function ErrorHandlerProvider({
       let ids = map(copy, ({ id }) => id);
       if (includes(ids, id)) {
         let index = indexOf(ids, id);
-        copy[index].props = data;
-        copy[index].isVisible = true;
+        copy[index]!.props = data;
+        copy[index]!.isVisible = true;
         setErrorItems(copy);
       }
     },
@@ -86,7 +87,7 @@ export default function ErrorHandlerProvider({
       let ids = map(copy, ({ id }) => id);
       if (includes(ids, id)) {
         let index = indexOf(ids, id);
-        copy[index].isVisible = false;
+        copy[index]!.isVisible = false;
         setErrorItems(copy);
       }
     },

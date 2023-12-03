@@ -1,7 +1,7 @@
-import { PropsWithChildren, createContext } from "react";
+import React, { createContext, type PropsWithChildren } from "react";
 import useContext from "../useContext";
 import { forgottonProviderMessage } from "../utils";
-import { INavigation } from "./type";
+import type { INavigation } from "./type";
 import useNavigationStore from "./useNavigationStore";
 
 const NavigationContext = createContext<INavigation | null>(null);

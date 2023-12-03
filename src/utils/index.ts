@@ -1,7 +1,7 @@
 import includes from "lodash.includes";
 import isUndefined from "lodash.isundefined";
 import map from "lodash.map";
-import { IIDs, ITree, TKey } from "../type";
+import type { IIDs, ITree, TKey } from "../type";
 
 export const forgottonProviderMessage = (name: string, source: string) =>
   `Please wrap your root element inside of \`${name}Provider\` component.\nyou can import it from '${source}'.`;
@@ -26,7 +26,7 @@ export function GenerateTreeFromArray(ids: IIDs[], rootId: TKey) {
   for (let { id, pid } of ids) tree[id] = { value: { id, pid }, children: [] };
   for (let { id, pid } of ids) {
     let parent = tree[pid];
-    if (!isUndefined(parent)) parent.children.push(tree[id]);
+    if (!isUndefined(parent)) parent.children.push(tree[id]!);
   }
   return tree[rootId];
 }

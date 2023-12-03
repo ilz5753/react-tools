@@ -1,5 +1,5 @@
 import isNull from "lodash.isnull";
-import { Context, useContext as useReactContext } from "react";
+import { useContext as useReactContext, type Context } from "react";
 
 export default function useContext<T>(
   ctx: Context<T | null>,

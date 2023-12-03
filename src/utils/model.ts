@@ -2,9 +2,9 @@ import includes from "lodash.includes";
 import indexOf from "lodash.indexof";
 import map from "lodash.map";
 import noop from "lodash.noop";
-import { TEmptyVoid, TKey } from "../type";
+import type { TEmptyVoid, TKey } from "../type";
 import PropsModel from "./PropsModel";
-import { IPropsModel } from "./PropsModel/type";
+import type { IPropsModel } from "./PropsModel/type";
 
 export default class Model {
   private models: IPropsModel[];
@@ -25,7 +25,7 @@ export default class Model {
     let pm: IPropsModel = new PropsModel(id);
     if (includes(ids, id)) {
       let index = indexOf(ids, id);
-      pm = this.models[index];
+      pm = this.models[index]!;
     }
     return pm;
   }
@@ -33,7 +33,7 @@ export default class Model {
     let ids = this.extractIds();
     if (includes(ids, id)) {
       let index = indexOf(ids, id);
-      let item = this.models[index];
+      let item = this.models[index]!;
       let prevProps = item.getProps();
       item.setProps({ ...prevProps, ...props });
       this.updater();

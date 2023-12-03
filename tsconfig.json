@@ -2,15 +2,32 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "ESNext",
-    "target": "es5",
+    "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "preserve",
+    "jsx": "react",
     "declaration": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": false,
+    "noStrictGenericChecks": false,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"]
+    }
   },
-  "include": ["src", "example/index.tsx", "example/FreezeTest.tsx"],
-  "exclude": ["node_modules", "dist", "example", "srcSnapshot"]
+  // "include": ["src"],
+  "include": ["src/**/*", "index.ts", "rollup.config.js"],
+  "exclude": ["node_modules", "dist", "example"]
 }

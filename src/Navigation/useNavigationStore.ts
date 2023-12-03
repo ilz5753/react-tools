@@ -1,8 +1,8 @@
-import map from "lodash.map";
-import isUndefined from "lodash.isundefined";
 import isFunction from "lodash.isfunction";
+import isUndefined from "lodash.isundefined";
+import map from "lodash.map";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { IIDs, IIDsKeys, TEmptyVoid, TKey } from "../type";
+import type { IIDs, IIDsKeys, TEmptyVoid, TKey } from "../type";
 // import { emptyPromise } from "../utils";
 import PropsModel from "../utils/PropsModel";
 import NavigationEventEmitter, {
@@ -12,7 +12,7 @@ import NavigationEventEmitter, {
   UPDATE_IDS,
   UPDATE_SCREEN,
 } from "./NavigationEventEmitter";
-import { INavigationHookData, INavigationScreen } from "./type";
+import type { INavigationHookData, INavigationScreen } from "./type";
 
 export default function useNavigationStore({
   ids: data = [],

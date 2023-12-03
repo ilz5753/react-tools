@@ -1,5 +1,5 @@
-import { TKey } from "../../type";
-import { IPropsModel } from "./type";
+import type { TKey } from "../../type";
+import type { IPropsModel } from "./type";
 
 export default class PropsModel implements IPropsModel {
   private id: TKey;

@@ -1,14 +1,15 @@
-import {
-  ComponentType,
-  PropsWithChildren,
+import React, {
   createContext,
   useCallback,
   useMemo,
   useState,
+  type ComponentType,
+  type PropsWithChildren,
 } from "react";
+import type { TKey } from "../type";
 import useContext from "../useContext";
 import { forgottonProviderMessage, randomStringId } from "../utils";
-import { IFreeze, IFreezeProps, TFreezePropsKey } from "./type";
+import type { IFreeze, IFreezeProps, TFreezePropsKey } from "./type";
 
 const FreezeContext = createContext<IFreeze | null>(null);
 
@@ -39,12 +40,12 @@ export function MakeFreeze<T extends IFreezeProps>(
     return (
       <Component
         {...{
+          ...(currentProps! as T),
           freezeId: id,
           isFrozen,
           toggleFreeze,
           unfreeze: _unfreeze,
           freeze: _freeze,
-          ...(currentProps as T),
         }}
       />
     );
@@ -57,15 +58,15 @@ export function MakeFreeze<T extends IFreezeProps>(
 
 export default function FreezeProvider({ children }: PropsWithChildren) {
   const [frozenComponents, setFrozenComponents] = useState<
-    Record<string, object>
+    Record<TKey, object>
   >({});
   const freeze = useCallback(
-    (id: string, props: object) =>
+    (id: TKey, props: object) =>
       setFrozenComponents((prev) => ({ ...prev, [id]: props })),
     []
   );
   const unfreeze = useCallback(
-    (id: string) =>
+    (id: TKey) =>
       setFrozenComponents((prev) => {
         const newState = { ...prev };
         delete newState[id];
