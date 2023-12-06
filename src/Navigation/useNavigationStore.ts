@@ -1,9 +1,10 @@
 import isFunction from "lodash.isfunction";
-import isUndefined from "lodash.isundefined";
 import map from "lodash.map";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { IIDs, IIDsKeys, TEmptyVoid, TKey } from "../type";
 // import { emptyPromise } from "../utils";
+import includes from "lodash.includes";
+import indexOf from "lodash.indexof";
 import PropsModel from "../utils/PropsModel";
 import NavigationEventEmitter, {
   CREATE_SCREEN,
@@ -12,15 +13,21 @@ import NavigationEventEmitter, {
   UPDATE_IDS,
   UPDATE_SCREEN,
 } from "./NavigationEventEmitter";
-import type { INavigationHookData, INavigationScreen } from "./type";
+import type {
+  INavigationHookData,
+  INavigationHookResult,
+  INavigationScreen,
+} from "./type";
 
 export default function useNavigationStore({
   ids: data = [],
+  history: stack = [],
   updateIds,
 }: // animationCallbacks = { entering: emptyPromise, exiting: emptyPromise },
-INavigationHookData) {
+INavigationHookData): INavigationHookResult {
   // let { entering, exiting } = animationCallbacks;
   let [ids, setIds] = useState(data);
+  let [history, setHistory] = useState(stack);
   let callbackRef = useRef<TEmptyVoid>();
   let updateIDs = useCallback(
     (ids: IIDs[]) => {
@@ -38,7 +45,7 @@ INavigationHookData) {
     );
   }, [updateIDs]);
   let unregisterUpdateIds = useCallback(() => {
-    if (!isUndefined(callbackRef.current)) {
+    if (isFunction(callbackRef.current)) {
       callbackRef.current();
       callbackRef.current = undefined;
     }
@@ -52,7 +59,7 @@ INavigationHookData) {
     []
   );
   let updateScreen = useCallback(
-    (id: TKey, screen: Omit<INavigationScreen, IIDsKeys>) =>
+    (id: TKey, screen: Partial<Omit<INavigationScreen, IIDsKeys>>) =>
       NavigationEventEmitter.emit(UPDATE_SCREEN, id, screen),
     []
   );
@@ -64,13 +71,44 @@ INavigationHookData) {
     // [exiting]
     []
   );
+  let getScreens = useCallback(
+    () =>
+      map(NavigationModel.getModels(), ({ getProps }) =>
+        getProps()
+      ) as INavigationScreen[],
+    []
+  );
   let reRender = useCallback(() => {
-    let screens = map(NavigationModel.getModels(), ({ getProps }) =>
-      getProps()
-    ) as INavigationScreen[];
+    let screens = getScreens();
     let ids: IIDs[] = map(screens, ({ id, pid }) => ({ id, pid }));
     NavigationEventEmitter.emit(UPDATE_IDS, ids);
-  }, []);
+  }, [getScreens]);
+  let navigate = useCallback(
+    (name: string, props?: object) => {
+      let copy = [...history];
+      let screens = getScreens();
+      let names = map(screens, ({ name }) => name);
+      if (includes(names, name)) {
+        let nIndex = indexOf(names, name);
+        let nameId = screens[nIndex]!.id;
+        if (includes(copy, nameId)) {
+          let hIndex = indexOf(copy, nameId);
+          copy.splice(0, hIndex);
+        } else copy.push(nameId);
+        updateScreen(nameId, { props });
+        setHistory(copy);
+      } else throw new Error(`No screen with name: "${name}".`);
+    },
+    [history, getScreens, updateScreen]
+  );
+  let goBack = useCallback(() => {
+    let copy = [...history];
+    let l = copy.length;
+    if (l > 1) {
+      copy.pop();
+      setHistory(copy);
+    } else throw new Error(`No screen for back.`);
+  }, [history]);
   useEffect(() => {
     NavigationModel.setUpdater(reRender);
     registerUpdateIds();
@@ -96,8 +134,11 @@ INavigationHookData) {
   }, [registerUpdateIds, unregisterUpdateIds, reRender]);
   return {
     ids,
+    history,
     createScreen,
     updateScreen,
     deleteScreen,
+    navigate,
+    goBack,
   };
 }

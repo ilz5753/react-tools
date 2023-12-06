@@ -5,9 +5,15 @@ export interface INavigationScreen extends IIDs, IName, IComponent, IProps {
 }
 export interface INavigation {
   ids: IIDs[];
+  history: TKey[];
   createScreen: (screen: INavigationScreen) => void;
-  updateScreen: (id: TKey, screen: Omit<INavigationScreen, IIDsKeys>) => void;
+  updateScreen: (
+    id: TKey,
+    screen: Partial<Omit<INavigationScreen, IIDsKeys>>
+  ) => void;
   deleteScreen: (id: TKey) => void;
+  navigate: (name: string, props?: object) => void;
+  goBack: () => void;
 }
 export type TNavigationAnimationCallback = (
   currentIndex: number,
@@ -20,6 +26,8 @@ export interface INavigationAnimations {
 }
 export interface INavigationHookData {
   ids?: IIDs[];
+  history?: TKey[];
   updateIds?(ids: IIDs[]): void;
   // animationCallbacks?: INavigationAnimations;
 }
+export type INavigationHookResult = INavigation;

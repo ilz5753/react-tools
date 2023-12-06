@@ -1,52 +1,52 @@
-# @ilz5753/react-tools
+# React Tools Library
 
-A React utility library providing a collection of hooks, providers, and components designed to streamline common React development patterns and enhance functionality.
+`@ilz5753/react-tools` is a comprehensive utility library for React, offering an assortment of hooks, providers, and components oriented towards optimizing common development patterns in React and enhancing overall functionality.
 
 ## Features
 
 ### `ErrorHandlerProvider`
 
-A context provider for handling errors throughout your React application. Wrap your app with `ErrorHandlerProvider` to catch and manage errors in a centralized location.
+Provides a context for managing errors across a React application. Utilize the ErrorHandlerProvider to centrally capture and handle errors within your application.
 
 ### `EventEmitter`
 
-An implementation of the publish/subscribe pattern, allowing components to emit events and register listeners. Use it to facilitate communication between disconnected components without prop drilling or context.
+Implements the publish/subscribe pattern, enabling components to broadcast events and register corresponding event listeners. This facilitates communication between disparate components without resorting to prop drilling or context usage.
 
 ### `forgottonProviderMessage`
 
-A development aid that provides a meaningful warning when context values are accessed without a surrounding `<Provider>`. This helps in identifying missing providers during early development phases.
+Assists development by issuing a meaningful warning when attempting to access context values without the presence of a surrounding `<Provider>`. This feature aids in identifying missing providers during early stages of development.
 
 ### `FreezeProvider`
 
-A provider that allows you to "freeze" your application state, preventing state updates and re-renders. It is useful for situations where you need to ensure the UI remains unchanged, such as during critical animations or transitions.
+This provider allows you to “freeze” your application state, prohibiting state updates and re-renders. It is beneficial for scenarios where you need to ensure the UI remains invariant, such as during critical animations or transitions.
 
 ### `GenerateTreeFromArray`
 
-A utility function to convert a flat array structure into a tree, typically used for creating hierarchies from flat data structures. Useful for menu navigation, file systems, or any nested representation of data.
+This utility function transforms a flat array structure into a tree, typically useful for creating hierarchies from flat data structures. It is valuable for menu navigation, file systems, or any hierarchical representation of data.
 
 ### `NavigationProvider`
 
-A context provider to manage navigation in your application. Use `NavigationProvider` to handle current location, navigation history, and transition between different views in a SPA (Single Page Application).
+Manages navigation within your application via a context provider. Use `NavigationProvider` to oversee the current location, navigation history, and transitions between different views in a Single Page Application (SPA).
 
 ### `useContext`
 
-A custom implementation of React's built-in `useContext` hook that may include additional developer warnings or enhancements. Use it to access context values with an interface identical to React's hook.
+A custom implementation of React’s built-in `useContext` hook, potentially incorporating additional developer warnings or enhancements. This hook provides access to context values using an interface identical to React’s native hook.
 
 ### `useErrorHandler`
 
-A custom hook that works with `ErrorHandlerProvider` to handle errors within your components. It simplifies the process of catching and handling errors locally or escalating them to a global handler.
+This custom hook interacts with the `ErrorHandlerProvider` to handle errors within components, simplifying the process of catching and handling errors locally or elevating them to a global handler.
 
 ### `useFreeze`
 
-A hook interacting with `FreezeProvider` to control the "freezing" of your app's state. This hook can be used to trigger or apply freeze status from within components.
+A hook that collaborates with `FreezeProvider` to control the “freezing” of your application’s state. It can be employed to trigger or apply the “frozen” status from within components.
 
 ### `useNavigation`
 
-A hook for interacting with `NavigationProvider`, providing easy access to navigation actions and state. Simplify the navigation and routing logic in your components with this hook.
+A hook tailored for interacting with `NavigationProvider`, facilitating streamlined access to navigation actions and state. Simplify the navigation and routing logic within components by utilizing this hook.
 
 ## Installation
 
-To use `@ilz5753/react-tools` in your project, you need to install it:
+To integrate `@ilz5753/react-tools` into your project, simply install it using your package manager of choice:
 
 ```bash
 npm install @ilz5753/react-tools --save
