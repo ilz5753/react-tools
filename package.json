@@ -1,8 +1,8 @@
 {
   "name": "@ilz5753/react-tools",
-  "version": "1.0.2",
-  "description": "",
-  "source": "index.ts",
+  "version": "1.0.3",
+  "description": "`@ilz5753/react-tools` is a comprehensive utility library for React, offering an assortment of hooks, providers, and components oriented towards optimizing common development patterns in React and enhancing overall functionality.",
+  "source": "src/index.ts",
   "main": "dist/index.js",
   "umd:main": "dist/index.umd.js",
   "module": "dist/index.mjs",
